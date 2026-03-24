@@ -1,4 +1,5 @@
 import pygame
+from pygame import gfxdraw
 from objects.particle import Particle
 
 def create_particle(particleList: list[Particle]):
@@ -13,7 +14,9 @@ def draw_particles(particleList: list[Particle]):
     max_velocity = max(velocities)
     for particle in particleList:
         particle.apply_dynamic_color(max_velocity)
-        pygame.draw.circle(screen, particle.color, particle.position_current * SCALE, particle.radius * SCALE)
+        # pygame.draw.circle(screen, particle.color, particle.position_current * SCALE, particle.radius * SCALE)
+        gfxdraw.aacircle(screen, int(particle.position_current.x * SCALE), int(particle.position_current.y * SCALE), int(particle.radius * SCALE), particle.color)
+        gfxdraw.filled_circle(screen, int(particle.position_current.x * SCALE), int(particle.position_current.y * SCALE), int(particle.radius * SCALE), (particle.color.r, particle.color.g, particle.color.b, 100))
 
 def apply_gravity(particleList: list[Particle]):
     GRAVITY = pygame.Vector2(0.0, 10.0)
